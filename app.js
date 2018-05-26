@@ -49,6 +49,22 @@ app.get('/olvide', (req,res)=>{
   })
 })
 
+app.get('/chat', (req,res)=>{
+
+	res.render('chat',{
+    css: 'chat'
+  })
+})
+
+app.get('/tarjetas', (req,res)=>{
+
+	res.render('tarjetas',{
+    css: 'tarjetas'
+  })
+})
+
+
+
 app.get('/calendario',(req,res)=>{
   res.render('calendario',{
     css: 'calendario_styles'

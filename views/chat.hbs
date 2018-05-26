@@ -1,0 +1,74 @@
+<nav class="navbar navbar-expand-lg navbar-light bg-success">
+  <a class="navbar-brand" href="#">SpeakBk</a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+
+  <div class="collapse navbar-collapse" id="navbarSupportedContent">
+    <ul class="navbar-nav mr-auto">
+      <li class="nav-item active">
+        <a class="nav-link" href="tarjetas">Tarjetas <span class="sr-only">(current)</span></a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="chat">chat</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="transacciones">Transacciones</a>
+      </li>
+
+
+    </ul>
+    <form class="form-inline my-2 my-lg-0">
+      <input class="form-control mr-sm-2" type="search" placeholder="" aria-label="Search">
+      <button class="btn  my-2 my-sm-0" type="submit">Buscar</button>
+    </form>
+  </div>
+</nav>
+
+<div class="container-fluid centerp ">
+      <h1>Formulas tus preguntas</h1>
+      <br>
+          <div class="divchat " >
+            <div  class="form-control" id="chat">
+               <ul id="messages"></ul>
+              </div>
+              <br>
+              <div class="mc">
+                <div class="m1">
+                    <input class="form-control "  id="m" />
+                </div>
+                <div class="m1">
+                  <button class=" m1 btn btn-success">Enviar</button>
+                </div>
+              </div>
+      </div>
+  </div>
+
+<script>
+
+  $.ajax({
+       url: '/api/chat',
+       type: 'POST',
+       method: 'POST',
+       data: {empresa:empresa , tipo:"Pagar"},
+       success: function(data){
+       console.log(data);
+       var tbl=$("<table/>").attr("id","mytable");
+  $("#div1").append(tbl);
+  for(var i=0;i<data.cuenta.length;i++)
+  {
+      var tr="<tr>";
+      var td1="<td>"+data.cuenta[i]["proeevedor"]+"</td>";
+        var td2="<td> <a href='cpagar?id="+ data.cuenta[i]["factura"] +"'>" + data.cuenta[i]["factura"] +"</a> </td>";
+      var td3="<td style='color:red'>"+data.cuenta[i]["monto"]+"</td>";
+      var td4="<td>"+data.cuenta[i]["fechaemision"]+"</td>";
+      var td5="<td>"+data.cuenta[i]["fechavencimiento"]+"</td>";
+      var td6="<td>"+data.cuenta[i]["estado"]+"</td></tr>";
+
+     $("#mytable").append(tr+td1+td2+td3+td4+td5+td6);
+
+  }
+     }
+     });
+
+</script>

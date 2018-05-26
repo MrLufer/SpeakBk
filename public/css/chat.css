@@ -1,0 +1,52 @@
+#chat {
+
+  border: 1px solid #2E64FE;
+  height: 150px;
+  width: 500px;
+  overflow-y: scroll;
+}
+
+
+.divchat {
+
+  height: 150px;
+  width: 400%;
+}
+
+
+.textcenter {
+  text-align: center;
+
+  left: 20%;
+  top: 50%;
+}
+
+
+
+.m1 {
+  display: inline-block;
+}
+.centerp{
+
+  margin: auto;
+    width: 50%;
+    padding: 10px;
+
+}
+
+body, html {
+    height: 100%;
+}
+
+.bg {
+    /* The image used */
+    background-image: url("img/banner1.jpg");
+
+    /* Full height */
+    height: 100%;
+
+    /* Center and scale the image nicely */
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+}

@@ -1,5 +1,5 @@
 module.exports = {
   port: process.env.PORT || 8000,
-  db: process.env.MONGODB_URI || 'mongodb://cashin:cashin@ds213229.mlab.com:13229/cashin',
+  db: process.env.MONGODB_URI || 'mongodb://speakbk:speakbk@ds235850.mlab.com:35850/speakbk',
   SECRET_TOKEN: 'miclavedetokens'
 }
