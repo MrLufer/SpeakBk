@@ -3,8 +3,8 @@
 const mongoose = require('mongoose')
 const app = require('./app')
 const config = require('./config')
-//const server = require('http').Server(app)
-//const io = require('socket.io')(server)
+const server = require('http').Server(app)
+const io = require('socket.io')(server)
 
 
 

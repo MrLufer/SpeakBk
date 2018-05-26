@@ -1,0 +1,81 @@
+<div class="container textcenter ">
+      <h1>Bienvenid@ Fulan@ </h1>
+
+      <br>
+
+      <br>
+
+
+
+        <div class="row ">
+
+           <div class="col-lg-4">
+
+           </div>
+
+           <div class="col-lg-4">
+           <button class="btn btn-primary ancho" onclick="empresa()" id="empresa" >EMPRESA 2</button>
+           </div>
+           <div class="col-lg-4">
+
+           </div>
+         </div>
+
+         <br>
+
+
+
+          <br>
+
+          <div class="row ">
+             <div class="col-lg-4">
+
+             </div>
+
+             <div class="col-lg-4">
+              <a href="/registro" class="btn btn-primary ancho" role="button">REGISTRAR UNA NUEVA EMPRESA</a>
+             </div>
+             <div class="col-lg-4">
+
+             </div>
+
+
+           </div>
+
+
+           <br>
+
+
+         <div class="row ">
+            <div class="col-lg-4">
+
+            </div>
+            <div class="col-lg-4">
+              <a href="/index" class="btn btn-danger" role="button">Salir</a>
+            </div>
+            <div class="col-lg-4">
+
+            </div>
+
+
+          </div>
+
+  </div>
+
+  <script src="https://code.jquery.com/jquery-1.11.1.js"></script>
+
+
+
+  <script>
+
+
+  function empresa(){
+
+    var empresa = $("#empresa").text();
+    localStorage.setItem("empresa",empresa);
+     window.location.href='calendario';
+
+  }
+
+
+  </script>

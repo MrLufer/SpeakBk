@@ -1,0 +1,181 @@
+<style>
+
+table.blueTable {
+  border: 1px solid #1C6EA4;
+  background-color: #EEEEEE;
+  width: 100%;
+  text-align: left;
+  border-collapse: collapse;
+}
+#mytable {
+  border: 1px solid #1C6EA4;
+  width: 100%;
+  text-align: left;
+  border-collapse: collapse;
+}
+</style>
+
+<div class="container">
+      <h1>Administrador de Usuarios</h1>
+      <br>
+     <div class="row">
+        <div class="col-lg-2">
+    <label for="exampleInputEmail1">Buscar por DNI:</label>
+
+</div>
+        <div class="col-lg-3">
+      <input type="text" class=" specialinput" id="dni">
+        </div>
+        <div class="col-lg-3">
+          <button type="button" class="btn btn-primary" onclick="cargarUsers()">Buscar</button>
+
+        </div>
+      </div>
+      <br>
+      <br>
+      <p>En caso el usuario no exista, deberá solicitar personalmente su registro.</p>
+
+      <table class="blueTable" >
+
+
+        <thead>
+              <tr>
+                <th> Nombre </th>
+                <th> Sin accesos</th>
+                <th> U. sin Facultades </th>
+                <th> U. con Facultades </th>
+
+              </tr>
+              </thead>
+
+              <br>
+
+              </table>
+
+              <div  class="positiondiv  " id="div1">
+
+              </div >
+
+
+           <br>
+           <br>
+
+         <div class="row ">
+            <div class="col-lg-3">
+
+            </div>
+            <div class="col-lg-3">
+
+            </div>
+            <div class="col-lg-3">
+
+            </div>
+
+            <div class="col-lg-3">
+              <button  class="btn btn btn-success">Guardar</button>
+              <a href="calendario" class="btn btn-primary"> Volver </a>
+
+            </div>
+          </div>
+
+          <span> Agregar Representante Legal </span> <button type="button" class="btn btn-default" onclick="addUser(1)"> + </button>
+          <div id="adduser1"></div>
+          <hr>
+
+          <span> Agregar Usuarios </span> <button type="button" class="btn btn-default" onclick="addUser(2)"> + </button>
+          <div id="adduser2"></div>
+          <hr>
+
+          <input class="btn btn-sm btn-default" type="submit" value="Agregar">
+
+  </div>
+<script src="https://code.jquery.com/jquery-1.11.1.js"></script>
+
+<script type="text/javascript">
+function addUser( div ){
+  var i, fields, id, m;
+
+  var divContainer = document.getElementById("adduser" + div);
+  fields = divContainer.getElementsByTagName("fieldset");
+
+  for ( i = 0; i < fields.length; i++ ) {
+    if ( !document.getElementById("div" + div + "user" + i) ) {
+      m = i;
+      id="div" + div + "user" + i;
+      break;
+    }
+  }
+  if ( !id ) { m=fields.length; id="div" + div + "user" + fields.length; }
+
+  var newfieldset = document.createElement("FIELDSET");
+  newfieldset.id = id;
+  newfieldset.innerHTML = "\
+  <div class='input-group'>\
+    <span class='input-group-addon' id='sizing-addon2'> DNI </span>\
+    <input type='text' class='form-control' aria-describedby='sizing-addon2' name='user"+div+"["+m+"][dni]' maxlength='8' onkeyup='dni(this)' required>\
+    <span class='input-group-addon' id='sizing-addon2'> Nombre </span>\
+    <input type='text' class='form-control' aria-describedby='sizing-addon2' name='user"+div+"["+m+"][name]' maxlength='100' required>\
+    <span class='input-group-addon' id='sizing-addon2'> Email </span>\
+    <input type='email' class='form-control' aria-describedby='sizing-addon2' name='user"+div+"["+m+"][mail]' maxlength='62' required>\
+    <span class='input-group-addon bg-blue' id='sizing-addon2' onclick='remove(this)'> - </span>\
+  </div>";
+
+  if ( div == 2 ){ newfieldset.innerHTML += "<label> <input type='checkbox' name='user"+div+"["+m+"][facu]'> Autorizar para operaciones </label>"; }
+
+  document.getElementById('adduser'+div).appendChild(newfieldset);
+}
+</script>
+
+
+
+  <script>
+
+
+
+function cargarUsers(){
+
+  var dni = document.getElementById('dni').value;
+    $.ajax({
+         url: '/api/getempuser',
+         type: 'POST',
+         method: 'POST',
+         data: {empresa:"EMPRESA 2",dni:dni},
+         success: function(data){
+         console.log(data);}
+       });
+
+  }
+
+
+$(  function admuser(){
+
+
+    $.ajax({
+         url: '/api/getuser',
+         type: 'POST',
+         method: 'POST',
+         data: {empresa:"EMPRESA 2"},
+         success: function(data){
+         console.log(data);
+         var tbl=$("<table/>").attr("id","mytable");
+    $("#div1").append(tbl);
+    for(var i=0;i<data.usuario.length;i++)
+    {
+        var tr="<tr>";
+        var td1="<td>"+data.usuario[i]["name"]+"</td>";
+        var td2="<td> <input type='radio' value='1' name='priv"+[i]+"'></td>";
+        var td3="<td> <input type='radio' value='2' name='priv"+[i]+"'></td>";
+        var td4="<td> <input type='radio' value='3' name='priv"+[i]+"'></td>";
+       $("#mytable").append(tr+td1+td2+td3+td4);
+
+    }}
+       });
+
+
+
+  })
+
+
+
+
+  </script>

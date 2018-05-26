@@ -1,0 +1,175 @@
+<div class="container-fluid centerp">
+      <h1 id="">Cuenta por Cobrar</h1>
+      <br>
+     <div class="row">
+        <div class="col-lg-4">
+    <label for="exampleInputEmail1">Proeveedor:</label>
+
+</div>
+        <div class="col-lg-4">
+      <label for="exampleInputEmail1" id="pro">Marcelino S.A</label>
+        </div>
+        <div class="col-lg-4">
+
+  <label for="exampleInputEmail1" id="ruc">RUC: 1234567</label>
+
+
+        </div>
+      </div>
+      <div class="row">
+         <div class="col-lg-4">
+     <label for="exampleInputEmail1">Factura:</label>
+ </div>
+         <div class="col-lg-4">
+            <label for="exampleInputEmail1" id="factura">124423-45</label>
+         </div>
+         <div class="col-lg-4">
+
+
+         </div>
+
+       </div>
+
+       <div class="row">
+          <div class="col-lg-4">
+      <label for="exampleInputEmail1">Monto:</label>
+  </div>
+          <div class="col-lg-4">
+             <label for="exampleInputEmail1" id="monto">2000000 soles</label>
+          </div>
+          <div class="col-lg-4">
+
+
+          </div>
+
+        </div>
+        <div class="row">
+           <div class="col-lg-4">
+       <label for="exampleInputEmail1">Fecha de Emisión:</label>
+   </div>
+           <div class="col-lg-4">
+              <label for="exampleInputEmail1" id="emision">04/05/18</label>
+           </div>
+           <div class="col-lg-4">
+
+
+           </div>
+
+         </div>
+         <div class="row">
+            <div class="col-lg-4">
+        <label for="exampleInputEmail1">Fecha de Vencimiento:</label>
+    </div>
+            <div class="col-lg-4">
+               <label for="exampleInputEmail1" id="vencimiento">04/05/18</label>
+            </div>
+            <div class="col-lg-4">
+            </div>
+
+          </div>
+          <div class="row">
+             <div class="col-lg-4">
+         <label for="exampleInputEmail1">Descripción:</label>
+     </div>
+             <div class="col-lg-4">
+                <label for="exampleInputEmail1" id="descripcion">1 millar de panetones</label>
+             </div>
+             <div class="col-lg-4">
+             </div>
+           </div>
+           <div class="row">
+              <div class="col-lg-4">
+          <label for="exampleInputEmail1">Persona de Contacto:</label>
+      </div>
+              <div class="col-lg-4">
+                 <label for="exampleInputEmail1" id="contacto">Juan Perez</label>
+              </div>
+              <div class="col-lg-4">
+              </div>
+            </div>
+            <div class="row">
+               <div class="col-lg-4">
+           <label for="exampleInputEmail1">Telefono:</label>
+       </div>
+               <div class="col-lg-4">
+                  <label for="exampleInputEmail1" id="telefono">987654321</label>
+               </div>
+               <div class="col-lg-4">
+               </div>
+             </div>
+             <div class="row">
+                <div class="col-lg-4">
+            <label for="exampleInputEmail1">Estado:</label>
+        </div>
+                <div class="col-lg-4">
+                   <label for="exampleInputEmail1" id="estado">Pagado(PersonaX)</label>
+                </div>
+                <div class="col-lg-4">
+                    <button type="button" class="btn btn-primary">Ver sustento</button>
+                    <button type="button" class="btn btn-primary">Confirmar</button>
+                </div>
+              </div>
+              <div class="row">
+                 <div class="col-lg-4">
+             <label for="exampleInputEmail1">Chat:</label>
+         </div>
+                 <div class="col-lg-4">
+                 </div>
+                 <div class="col-lg-4">
+                 </div>
+               </div>
+         <div class="row">
+            <div class="col-lg-4">  <button type="button" class="btn btn-primary">Anterior</button>
+              <a href="ctscobrar" class="btn btn-primary">Volver</a>
+              <button type="button" class="btn btn-primary">Siguiente</button>
+
+    </div>
+            <div class="col-lg-4">
+            </div>
+            <div class="col-lg-4">
+            </div>
+          </div>
+  </div>
+
+  <script src="https://code.jquery.com/jquery-1.11.1.js"></script>
+
+
+  <script type="text/javascript">
+
+  $(document).ready(function cargarFac(){
+
+    function getParameterByName(name) {
+      name = name.replace(/[\[]/, "\\[").replace(/[\]]/, "\\]");
+      var regex = new RegExp("[\\?&]" + name + "=([^&#]*)"),
+      results = regex.exec(location.search);
+      return results === null ? "" : decodeURIComponent(results[1].replace(/\+/g, " "));
+  }
+
+  var id = getParameterByName('id');
+  var empresa = localStorage.getItem("empresa")
+    $.ajax({
+         url: '/api/getfactura',
+         type: 'POST',
+         method: 'POST',
+         data: {empresa:empresa , factura:id},
+         success: function(data){
+         console.log(data.cuenta[0]);
+         $("#ruc").text("RUC: "+data.cuenta[0].ruc);
+         $("#pro").text(data.cuenta[0].proeevedor);
+         $("#factura").text(data.cuenta[0].factura);
+         $("#monto").text(data.cuenta[0].monto+" Soles");
+         $("#estado").text(data.cuenta[0].estado);
+         $("#telefono").text(data.cuenta[0].telefono);
+         $("#emision").text(data.cuenta[0].fechaemision);
+         $("#vencimiento").text(data.cuenta[0].fechavencimiento);
+         $("#descripcion").text(data.cuenta[0].descripcion);
+         $("#contacto").text(data.cuenta[0].personacontacto);
+    }
+       });
+
+  });
+
+
+
+
+  </script>

@@ -1,0 +1,38 @@
+<div class="container">
+  <div class="row">
+
+      <div class="col-lg-4 "></div>
+      <div class="col-lg-4 textp margen mt-5 ">
+        <div class="">
+          <div class="">
+
+              <div class="text-center">
+              <h3><i class="fa fa-lock fa-4x"></i></h3>
+              <img src="/img/abierto.png"  height="100" width="200">
+              <h2 class="text-center"> Está a un paso...</h2>
+              <p> Digite su nueva contraseña. </p>
+              <div class="panel-body">
+                <form class="form" action="/olvide.php" method="post">
+                <fieldset>
+                  <div class="form-group">
+                  <div class="input-group">
+                    <span class="input-group-addon"><i class="glyphicon glyphicon-envelope color-blue"></i></span>
+                    <input id="emailInput" name="email" placeholder="Contraseña" class="form-control" type="email" oninvalid="setCustomValidity('Por favor indique un correo v&#225;lido.!')" onchange="try{setCustomValidity('')}catch(e){}" required="">
+                  </div>
+                  </div>
+                  <div class="form-group">
+                  <input class="btn btn-lg btn-primary btn-block" value="Generar una temporal" type="submit" name="submit">
+                  </div>
+                </fieldset>
+                </form>
+              </div>
+              <small style="color:red">  </small>
+            </div>
+
+          </div>
+        </div>
+      </div>
+        <div class="col-lg-4 "></div>
+
+  </div>
+</div>

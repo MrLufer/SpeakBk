@@ -1,0 +1,240 @@
+
+
+    <style>
+    body {
+    margin-bottom: 40px;
+  margin-top: 40px;
+  text-align: center;
+  font-size: 14px;
+  font-family: 'Roboto', sans-serif;
+  }
+
+#wrap {
+  width: 1100px;
+  margin: 0 auto;
+  }
+
+#external-events {
+  float: left;
+  width: 150px;
+  padding: 0 10px;
+  text-align: left;
+  }
+
+#external-events h4 {
+  font-size: 16px;
+  margin-top: 0;
+  padding-top: 1em;
+  }
+
+.external-event { /* try to mimick the look of a real event */
+  margin: 10px 0;
+  padding: 2px 4px;
+  background: #3366CC;
+  color: #fff;
+  font-size: .85em;
+  cursor: pointer;
+  }
+
+#external-events p {
+  margin: 1.5em 0;
+  font-size: 11px;
+  color: #666;
+  }
+
+#external-events p input {
+  margin: 0;
+  vertical-align: middle;
+  }
+
+#calendar {
+/* 		float: right; */
+      margin: 0 auto;
+  width: 900px;
+  background-color: #FFFFFF;
+    border-radius: 6px;
+      box-shadow: 0 1px 2px #C3C3C3;
+  -webkit-box-shadow: 0px 0px 21px 2px rgba(0,0,0,0.18);
+-moz-box-shadow: 0px 0px 21px 2px rgba(0,0,0,0.18);
+box-shadow: 0px 0px 21px 2px rgba(0,0,0,0.18);
+  }
+
+    .calendar{
+
+
+      text-align: center;
+      height: 350px;
+    }
+      </style>
+<!-- cuerpo  -->
+
+
+    <div class="container-fluid centerp">
+          <h1 id="title">EMPRESA XXXXXXXXXXXXX</h1>
+          <br>
+         <div class="row">
+            <div class="col-lg-2">
+        <label >Emitir Reporte:</label>
+
+    </div>
+            <div class="col-lg-2">
+              <select id="select2" class="form-control" >
+          <option>Semanal</option>
+          <option>Quincenal</option>
+
+        </select>
+            </div>
+            <div class="col-lg-2">
+      <a href="/flujos" class="btn btn-primary"> Emitir </a>
+
+
+            </div>
+          </div>
+
+
+           <div class="row">
+              <div class="col-lg-2">
+          <label >Buscar por:</label>
+      </div>
+              <div class="col-lg-2">
+                <select id="select1"class="form-control" >
+            <option>Razón Social</option>
+            <option>RUC</option>
+          </select>
+
+              </div>
+              <div class="col-lg-2">
+                 <input id="ingresar"type="text" class="form-control" placeholder="Buscar deudor o acreedor"></input>
+
+              </div>
+              <div class="col-lg-2">
+                <form name="formulario" id="formulario"  method="POST">
+	<input type="radio" name="edad" id="edad1" value="Pagar">Pagar<br>
+	<input type="radio" name="edad" id="edad2" value="Cobrar"> Cobrar<br>
+	<br><br>
+</form>
+
+              </div>
+
+              <div class="col-lg-2">
+
+
+              <button class="btn btn-primary" onclick="busqueda() "> Buscar </button>
+
+
+              </div>
+
+            </div>
+
+
+            <br>
+
+            <div class="row ">
+               <div class="col-lg-2 calendar bodycalendar">
+            <img src="img/leftclic.jpg"  width="20%" height="20%" class="img-fluid" >
+
+       </div>
+               <div class="col-lg-8 calendar">
+
+                 <div id="cal">
+                         <div class="header">
+                           <span class="left button" id="prev"> &lang; </span>
+                           <span class="left hook"></span>
+                           <span class="month-year" id="label"> June 2010 </span>
+                           <span class="right hook"></span>
+                           <span class="right button" id="next"> &rang; </span>
+                            </div>
+                         <table id="days">
+                           <tr>
+                             <td>DOMINGO</td>
+                             <td>LUNES</td>
+                             <td>MARTES</td>
+                             <td>MIERCOLES</td>
+                            <td>JUEVES</td>
+                            <td>VIERNES</td>
+                            <td>SABADO</td>
+                           </tr>
+                            </table>
+                         <div id="cal-frame">
+
+                           <table class="curr">
+                             <tbody>
+                             <tr><td class="nil"></td><td class="nil"></td><td>1</td><td>2</td><td>3</td><td>4</td><td>5</td></tr>
+                             <tr><td>6</td><td>7</td><td>8</td><td>9</td><td>10</td><td class="today">11</td><td>12</td></tr>
+                             <tr><td>13</td><td>14</td><td>15</td><td>16</td><td>17</td><td>18</td><td>19</td></tr>
+                             <tr><td>20</td><td>21</td><td>22</td><td>23</td><td>24</td><td>25</td><td>26</td></tr>
+                             <tr><td>27</td><td>28</td><td>29</td><td>30</td><td class="nil"></td><td class="nil"></td><td class="nil"></td></tr>
+                             </tbody>
+                          </table>
+
+
+                            </div>
+                          </div>
+
+
+
+               </div>
+               <div class="col-lg-2 calendar">
+
+                 <img src="img/rightclic.jpg"  width="20%" height="20%" class="img-fluid" >
+
+
+               </div>
+             </div>
+             <BR>
+                </div>
+
+                <a href="/admuser" class="btn btn-primary"> ADMINISTRAR USUARIOS </a>
+                <a href="/welcome" class="btn btn-primary"> Volver </a>
+                <button class="btn btn-sm btn-success" onclick="showdata(this.id)" id="green"> COBRAR 0 </button>
+            <button class="btn btn-sm btn-default" onclick="showdata(this.id)" id="all"> TODO </button>
+            <button class="btn btn-sm btn-danger" onclick="showdata(this.id)" id="red"> PAGAR 0 </button>
+
+              </div>
+
+
+
+
+      </div>
+<!-- fin cuerpo -->
+    <!-- Optional JavaScript -->
+
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script type='text/javascript' src="//ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
+
+      <script src="https://code.jquery.com/jquery-1.11.1.js"></script>
+    <script type="text/javascript">
+
+
+    function busqueda(){
+
+
+          var t =   $('input:radio[name=edad]:checked').val()
+           console.log(t)
+
+           var ingresar = $('#ingresar').val()
+
+           var b = $('#select1').val()
+           console.log(b)
+
+
+           localStorage.setItem("b",b);
+           localStorage.setItem("t",t);
+           localStorage.setItem("ingresar",ingresar);
+           window.location.href='busqueda';
+    }
+
+    function reporte(){
+           var select2 = $('#select2').val()
+           localStorage.setItem("select2",select2);
+           window.location.href='flujos';
+
+    }
+
+
+    $(function empresa(){
+      var empresa = localStorage.getItem("empresa")
+      $("#title").text("EMPRESA "+empresa);
+    })
+
+    </script>

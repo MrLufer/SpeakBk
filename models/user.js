@@ -1,12 +1,17 @@
+'use strict'
+
 const mongoose = require('mongoose')
 const Schema = mongoose.Schema
-
-const userSchema = new Schema({
-
-  user: String,
-  region: String,
-  edad: Number,
-  password: String
+const bcrypt = require('bcrypt-nodejs')
+const crypto = require('crypto')
 
 
-mongoose.model('user', userSchema)
+//MODELO DE LA EMPRESA
+const UserSchema = new Schema({
+  ruc: { type: Number, unique: true },
+  razon: {type: String}
+})
+
+
+
+module.exports = mongoose.model('User', UserSchema)

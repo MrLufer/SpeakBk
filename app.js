@@ -22,15 +22,141 @@ app.use('/api', api)
 
 app.get('/', (req,res)=>{
 
-	res.render('index');
-})
-app.get('/welcome', (req,res)=>{
+	res.render('index',{
+    css: 'index'
+  });
 
-	res.render('welcome',{
-    css: 'welcome_styles'
+})
+
+app.get('/olvide', (req,res)=>{
+
+	res.render('olvide',{
+    css: 'olvide'
+  });
+
+})
+app.get('/registro', (req,res)=>{
+
+	res.render('registro',{
+    css: 'registro'
+  })
+})
+
+app.get('/olvide', (req,res)=>{
+
+	res.render('olvide',{
+    css: 'olvide_styles'
+  })
+})
+
+app.get('/calendario',(req,res)=>{
+  res.render('calendario',{
+    css: 'calendario_styles'
+  })
+})
+
+app.get('/cpagar',(req,res)=>{
+  res.render('cpagar',{
+    css: 'cpagar_styles',
+    js: 'pagar'
+  })
+})
+
+app.get('/ccobrar',(req,res)=>{
+  res.render('ccobrar',{
+    css: 'cpagar_styles',
+    js: 'pagar'
   })
 })
 
 
+app.get('/consultaEmpresa',(req,res)=>{
+  res.render('consultaE',{
+    css: 'consultaE_styles'
+
+  })
+
+})
+
+app.get('/consultaPersona',(req,res)=>{
+  res.render('consultaP')
+})
+
+app.get('/index',(req,res)=>{
+	res.render('index')
+})
+
+app.get('/registro',(req,res)=>{
+	res.render('registro',{
+    css: 'registro_styles',
+    js: 'registro'
+  })
+})
+
+app.get('/admuser',(req,res)=>{
+	res.render('admuser',{
+    css: 'admuser_styles'
+
+  })
+})
+
+app.get('/ctscobrar',(req,res)=>{
+  res.render('ctscobrar',{
+    css: 'ctscobrar'
+  })
+
+})
+
+app.get('/busqueda',(req,res)=>{
+  res.render('busqueda.hbs',{
+    css: 'ctscobrar'
+  })
+
+})
+
+app.get('/ctspagar',(req,res)=>{
+  res.render('ctspagar',{
+    css: 'ctspagar'
+  })
+
+})
+
+app.get('/master',(req,res)=>{
+  res.render('master',{
+    js: 'master'
+
+  })
+})
+
+app.get('/password',(req,res)=>{
+  res.render('password',{
+  css: 'password'
+
+  })
+})
+
+app.get('/generatepassword',(req,res)=>{
+  res.render('generatePass',{
+  css: 'password'
+
+  })
+})
+
+
+app.get('/flujos',(req,res)=>{
+  res.render('chart',{
+    js: 'main',
+    jsx: 'Chart.bundle.min'
+
+  })
+
+})
+
+
+app.get('/changedpass',(req,res)=>{
+  res.render('changepass',{
+    css: 'change'
+  })
+})
 
 module.exports = app

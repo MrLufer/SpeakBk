@@ -1,0 +1,332 @@
+<div class="container-fluid centerp">
+      <h1>Cuenta por Pagar</h1>
+      <br>
+     <div class="row">
+        <div class="col-lg-4">
+    <label for="exampleInputEmail1">Proeveedor:</label>
+
+
+</div>
+        <div class="col-lg-4">
+      <label for="exampleInputEmail1" id="pro"></label>
+        </div>
+        <div class="col-lg-4">
+
+  <label for="exampleInputEmail1" id="ruc"></label>
+
+
+        </div>
+      </div>
+      <div class="row">
+         <div class="col-lg-4">
+     <label for="exampleInputEmail1">Factura:</label>
+ </div>
+         <div class="col-lg-4">
+            <label for="exampleInputEmail1" id="factura"></label>
+         </div>
+         <div class="col-lg-4">
+
+
+         </div>
+
+       </div>
+
+       <div class="row">
+          <div class="col-lg-4">
+      <label for="exampleInputEmail1">Monto:</label>
+  </div>
+          <div class="col-lg-4">
+             <label for="exampleInputEmail1" id="monto"></label>
+          </div>
+          <div class="col-lg-4">
+
+
+          </div>
+
+        </div>
+        <div class="row">
+           <div class="col-lg-4">
+       <label for="exampleInputEmail1">Fecha de Emisión:</label>
+   </div>
+           <div class="col-lg-4">
+              <label for="exampleInputEmail1" id="emision"></label>
+           </div>
+           <div class="col-lg-4">
+
+
+           </div>
+
+         </div>
+         <div class="row">
+            <div class="col-lg-4">
+        <label for="exampleInputEmail1">Fecha de Vencimiento:</label>
+    </div>
+            <div class="col-lg-4">
+               <label for="exampleInputEmail1" id="vencimiento"></label>
+            </div>
+            <div class="col-lg-4">
+
+
+            </div>
+
+          </div>
+          <div class="row">
+             <div class="col-lg-4">
+         <label for="exampleInputEmail1">Descripción:</label>
+     </div>
+             <div class="col-lg-4">
+                <label for="exampleInputEmail1" id="descripcion"></label>
+             </div>
+             <div class="col-lg-4">
+
+
+             </div>
+
+           </div>
+           <div class="row">
+              <div class="col-lg-4">
+          <label for="exampleInputEmail1">Persona de Contacto:</label>
+      </div>
+              <div class="col-lg-4">
+                 <label for="exampleInputEmail1" id="contacto"></label>
+              </div>
+              <div class="col-lg-4">
+
+
+              </div>
+
+            </div>
+            <div class="row">
+               <div class="col-lg-4">
+           <label for="exampleInputEmail1">Telefono:</label>
+       </div>
+               <div class="col-lg-4">
+                  <label for="exampleInputEmail1" id="telefono"></label>
+               </div>
+               <div class="col-lg-4">
+
+
+               </div>
+
+             </div>
+             <div class="row">
+                <div class="col-lg-4">
+            <label for="exampleInputEmail1" >Estado:</label>
+        </div>
+                <div class="col-lg-4">
+                   <label for="exampleInputEmail1" id="estado"></label>
+                </div>
+                <div class="col-lg-4">
+
+                    <button type="button" data-toggle="modal" data-target="#Confirmar" class="btn btn-primary">Pagar</button>
+
+
+                </div>
+
+              </div>
+              <div class="row">
+                 <div class="col-lg-4">
+
+                   <button type="button" class="btn btn-primary">Anterior</button>
+                     <a href="ctspagar" class="btn btn-primary">Volver</a>
+                     <button type="button" id="siguiente" class="btn btn-primary">Siguiente</button>
+
+         </div>
+                 <div class="col-lg-4">
+
+                 </div>
+                 <div class="col-lg-4">
+
+
+                 </div>
+
+               </div>
+
+
+
+
+
+
+
+         <div class="row">
+            <div class="col-lg-4">
+ <label for="exampleInputEmail1">Chat:</label>
+    </div>
+            <div class="col-lg-4">
+
+
+
+            </div>
+            <div class="col-lg-4">
+
+
+
+            </div>
+
+          </div>
+
+          <br>
+
+          <div class="divchat" >
+
+            <div id="chat">
+
+              <ul id="messages"></ul>
+
+                </div>
+
+
+      <form action="">
+        <input  id="m" autocomplete="off" /><button class="btn btn-primary">Enviar</button>
+      </form>
+
+
+          </div>
+
+
+
+
+  </div>
+
+  <div class="modal fade" id="Sustento" tabindex="-1" role="dialog" aria-labelledby="smallModal" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-body">
+          <button type="button" class="close" data-dismiss="modal" aria-hidden="true"> &times; </button>
+
+        </div>
+        <div class="">
+          <button type="button" class="btn btn-sm btn-success" onclick="valid(this.id,17113)" id="Valido"> V&#225;lida </button>
+          <button type="button" class="btn btn-sm btn-danger" onclick="valid(this.id,17113)" id="NoValido"> NO V&#225;lida </button>
+          <button type="button" class="btn btn-sm btn-default" data-dismiss="modal"> Salir </button>
+          <br> <small id="valid_fact"> </small> <br>
+        </div>
+      </div>
+    </div>
+  </div><!-- /Modal -->
+  <!-- Modal+ -->
+  <div class="modal fade" id="Confirmar" tabindex="-1" role="dialog" aria-labelledby="smallModal" aria-hidden="true">
+
+
+    <div class="modal-dialog modal-lg">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h4> Si desea adjuntar la foto de un voucher, cheque o alg&#250;n otro sustento para demostrar el pago de la factura. </h4>
+        </div>
+        <div class="modal-body">
+          <form class="textcenter" method="post" enctype="multipart/form-data">
+            <input type="file" class="btn btn-sm btn-default centered" name="fichero" id="fichero" value="Explorar">
+            <p> La imagen no debe pesar m&#225;s de 1MB </p> <br>
+            <input type="submit" class="btn btn-sm btn-success" name="submit" value="Subir">
+            <button type="button" class="btn btn-sm btn-danger" data-dismiss="modal"> Salir </button>
+          </form>
+        </div>
+      </div>
+    </div>
+
+   </div>
+
+
+
+
+
+
+
+
+
+
+
+
+  <script src="/socket.io/socket.io.js"></script>
+ <script src="https://code.jquery.com/jquery-1.11.1.js"></script>
+
+
+
+  <script>
+
+  document.getElementById('siguiente').addEventListener
+  ('click',getText);
+
+  function getText (){
+    alert('bam');
+  }
+
+
+
+
+
+
+  </script>
+
+  <script>
+    $(function () {
+      var socket = io();
+
+      $('form').submit(function(){
+        var chat = $('#chat');
+   //chat.append("Tú:  "+$('#m').val()+ "</br>");
+   socket.emit('chat message', $('#m').val());
+
+    $('#m').val('');
+        return false;
+      });
+      socket.on('chat message', function(msg){
+      $('#messages').append($('<hr><br>').text(msg));
+    });
+
+    });
+  </script>
+
+
+
+
+
+
+
+<script type="text/javascript">
+
+$(document).ready(function cargarFac(){
+
+
+  function getParameterByName(name) {
+    name = name.replace(/[\[]/, "\\[").replace(/[\]]/, "\\]");
+    var regex = new RegExp("[\\?&]" + name + "=([^&#]*)"),
+    results = regex.exec(location.search);
+    return results === null ? "" : decodeURIComponent(results[1].replace(/\+/g, " "));
+ }
+
+ var id = getParameterByName('id');
+ var empresa = localStorage.getItem("empresa")
+
+  $.ajax({
+       url: '/api/getfactura',
+       type: 'POST',
+       method: 'POST',
+       data: {empresa:empresa , factura:id},
+       success: function(data){
+       console.log(data);
+
+
+       $("#ruc").text("RUC: "+data.cuenta[0].ruc);
+       $("#pro").text(data.cuenta[0].proeevedor);
+       $("#factura").text(data.cuenta[0].factura);
+       $("#monto").text(data.cuenta[0].monto +" Soles");
+       $("#estado").text(data.cuenta[0].estado);
+       $("#telefono").text(data.cuenta[0].telefono);
+       $("#emision").text(data.cuenta[0].fechaemision);
+       $("#vencimiento").text(data.cuenta[0].fechavencimiento);
+       $("#descripcion").text(data.cuenta[0].descripcion);
+       $("#contacto").text(data.cuenta[0].personacontacto);
+
+     }
+
+     });
+
+});
+
+
+
+
+
+
+</script>

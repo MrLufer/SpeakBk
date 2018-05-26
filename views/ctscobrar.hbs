@@ -1,0 +1,124 @@
+<style>
+
+table.blueTable {
+
+  border: 1px solid #1C6EA4;
+  background-color: #EEEEEE;
+  width: 100%;
+  text-align: left;
+  border-collapse: collapse;
+}
+
+#mytable {
+
+  border: 1px solid #1C6EA4;
+  width: 100%;
+  text-align: left;
+  border-collapse: collapse;
+}
+</style>
+
+
+
+<div class="container ">
+      <h1 id="title">Cuentas por Cobrar *******</h1>
+
+
+      <br>
+      <table class="blueTable" >
+
+
+        <thead>
+              <tr>
+                <th> Empresa </th>
+                <th> Factura </th>
+                <th> Monto </th>
+                <th> Emision </th>
+                <th> Vencimiento </th>
+                <th> Estado </th>
+              </tr>
+              </thead>
+
+              <br>
+
+              </table>
+
+
+        <div  class="positiondiv  " id="div1">
+
+        </div >
+
+             <br>
+
+
+
+
+
+           <br>
+
+         <div class="row ">
+            <div class="col-lg-3">
+
+            </div>
+            <div class="col-lg-3">
+               <a class="btn btn-primary" href="calendario" role="button">Volver</a>
+            </div>
+            <div class="col-lg-3">
+
+            </div>
+
+            <div class="col-lg-3">
+
+            </div>
+          </div>
+
+  </div>
+
+<script src="https://code.jquery.com/jquery-1.11.1.js"></script>
+
+  <script>
+
+
+  $(document).ready(function cargarFacturas(){
+
+    var empresa = localStorage.getItem("empresa")
+    $("#title").text("Cuentas por pagar "+empresa);
+
+
+
+    $.ajax({
+         url: '/api/cuentaCobrar',
+         type: 'POST',
+         method: 'POST',
+         data: {empresa:empresa, tipo:"Cobrar" },
+         success: function(data){
+         console.log(data);
+         var tbl=$("<table/>").attr("id","mytable");
+    $("#div1").append(tbl);
+    for(var i=0;i<data.cuenta.length;i++)
+    {
+        var tr="<tr>";
+        var td1="<td>"+data.cuenta[i]["proeevedor"]+"</td>";
+        var td2="<td> <a href='ccobrar?id="+ data.cuenta[i]["factura"] +"'>" + data.cuenta[i]["factura"] +"</a> </td>";
+        var td3="<td style='color:green'>"+data.cuenta[i]["monto"]+"</td>";
+        var td4="<td>"+data.cuenta[i]["fechaemision"]+"</td>";
+        var td5="<td>"+data.cuenta[i]["fechavencimiento"]+"</td>";
+        var td6="<td>"+data.cuenta[i]["estado"]+"</td></tr>";
+
+       $("#mytable").append(tr+td1+td2+td3+td4+td5+td6);
+
+    }
+       }
+       });
+
+  });
+
+
+
+
+
+
+
+
+
+  </script>

@@ -1,0 +1,24 @@
+#chat {
+
+  border: 1px solid #2E64FE;
+  height: 150px;
+  width: 700px;
+  overflow-y: scroll;
+}
+
+
+.divchat {
+
+  height: 150px;
+  width: 400%;
+
+
+}
+
+
+.textcenter {
+  text-align: center;
+  
+  left: 20%;
+  top: 50%;
+}
