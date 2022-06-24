@@ -21,7 +21,7 @@
     "jwt-simple": "^0.5.3",
     "moment": "^2.20.1",
     "mongoose": "^5.7.5",
-    "node-fetch": "^2.6.1",
+    "node-fetch": "^2.6.7",
     "nodemailer": "^4.6.2",
     "passport": "^0.4.0",
     "passport-local": "^1.0.0",
