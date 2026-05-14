@@ -93,7 +93,8 @@ table.blueTable {
         {
             var tr="<tr>";
             var td1="<td>"+data.cuenta[i]["proeevedor"]+"</td>";
-            var td2="<td> <a href='cpagar?id="+ data.cuenta[i]["factura"] +"'>"+data.cuenta[i]["factura"]+"</a> </td>";
+            var detalle = data.cuenta[i]["tipo"] === "Cobrar" ? "ccobrar" : "cpagar";
+            var td2="<td> <a href='"+detalle+"?id="+ data.cuenta[i]["factura"] +"'>"+data.cuenta[i]["factura"]+"</a> </td>";
             var td3="<td>"+data.cuenta[i]["tipo"]+"</td>";
             var td4="<td style='color:red'>"+data.cuenta[i]["monto"]+"</td>";
             var td5="<td>"+data.cuenta[i]["fechaemision"]+"</td>";
@@ -123,7 +124,8 @@ table.blueTable {
            {
                var tr="<tr>";
                var td1="<td>"+data.cuenta[i]["empresa"]+"</td>";
-               var td2="<td> <a href='cpagar?id="+ data.cuenta[i]["factura"] +"'>" + data.cuenta[i]["factura"] +"</a> </td>";
+               var detalle = data.cuenta[i]["tipo"] === "Cobrar" ? "ccobrar" : "cpagar";
+               var td2="<td> <a href='"+detalle+"?id="+ data.cuenta[i]["factura"] +"'>" + data.cuenta[i]["factura"] +"</a> </td>";
                var td3="<td>"+data.cuenta[i]["tipo"]+"</td>";
                var td4="<td style='color:red'>"+data.cuenta[i]["monto"]+"</td>";
                var td5="<td>"+data.cuenta[i]["fechaemision"]+"</td>";

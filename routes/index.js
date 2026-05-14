@@ -9,6 +9,8 @@ const auth = require('../middlewares/auth')
 const api = express.Router()
 
 api.post('/email', EmailCtrl.sendEmail)
+api.post('/signin', userCtrl.signIn)
+api.post('/login', userCtrl.signIn)
 api.post('/buscar', cuentaCtrl.Buscar)
 api.post('/search', cuentaCtrl.Search)
 api.post('/getfactura', cuentaCtrl.getFactura)

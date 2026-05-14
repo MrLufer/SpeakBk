@@ -2,12 +2,12 @@
     <h1>SpeakBk Login</h1>
     <div class="SpeakBk-login box box--bi">
       <!-- form inicia aqui -->
-      <form action="#" method="post">
+      <form id="loginForm" action="/api/signin" method="post">
         <img src="/img/logo.jpg" alt="SpeakBk" />
         <div class="agile-field-txt">
           <label>
-            <i class="fa fa-user" aria-hidden="true"></i> Nombre de usuario</label>
-          <input type="text" name="name" placeholder=" " required="" />
+            <i class="fa fa-user" aria-hidden="true"></i> DNI o email</label>
+          <input type="text" name="identifier" id="identifier" placeholder=" " required="" />
         </div>
         <div class="agile-field-txt">
           <label>
@@ -23,6 +23,7 @@
             <a href="registro">Crear una cuenta</a>
           </div>
         </div>
+        <small id="loginError" class="d-block text-danger"></small>
         <!-- script para mostrar contraseña -->
         <script>
           function myFunction() {

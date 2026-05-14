@@ -20,8 +20,9 @@ app.set('view engine', '.hbs')
 app.use('/api', api)
 
 const pages = [
-  { route: '/', view: 'index', locals: { css: 'index' } },
-  { route: '/index', view: 'index', locals: { css: 'index' } },
+  { route: '/', view: 'index', locals: { css: 'index', js: 'login' } },
+  { route: '/index', view: 'index', locals: { css: 'index', js: 'login' } },
+  { route: '/welcome', view: 'welcome', locals: { css: 'welcome_styles' } },
   { route: '/olvide', view: 'olvide', locals: { css: 'olvide' } },
   { route: '/registro', view: 'registro', locals: { css: 'registro' } },
   { route: '/chat', view: 'chat', locals: { css: 'chat' } },

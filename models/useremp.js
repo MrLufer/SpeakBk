@@ -5,17 +5,17 @@ const Schema = mongoose.Schema
 
 
 // USUARIOS Y REPRESENTANTES
-const RepSchema =  Schema({
+const RepSchema = Schema({
 
-  email: { type: String, required: true,unique: true},
-  name: {type: String, required: true},
-  dni: { type: Number, required: true,unique: true},
-  password: { type: String },
-  suspendido: { type: Boolean, default: false},
-  facultades: { type: Boolean, default: true},
-  empresa:{type: String},
-  active: {type: Boolean,  default: false}
-})
+  email: { type: String, required: true, unique: true, lowercase: true, trim: true },
+  name: { type: String, required: true, trim: true },
+  dni: { type: Number, required: true, unique: true },
+  password: { type: String, required: true, select: false },
+  suspendido: { type: Boolean, default: false },
+  facultades: { type: Boolean, default: true },
+  empresa: { type: String, required: true, trim: true },
+  active: { type: Boolean, default: true }
+}, { timestamps: true })
 
 
 

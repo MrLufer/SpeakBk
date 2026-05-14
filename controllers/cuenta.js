@@ -93,14 +93,25 @@ async function getFactura (req, res) {
 }
 
 async function Buscar (req, res) {
-  if (!validateFields(req, res, ['empresa', 'tipo'])) {
+  if (!validateFields(req, res, ['tipo'])) {
     return
   }
 
+  const query = { tipo: req.body.tipo }
+
+  if (req.body.proeevedor) {
+    query.proeevedor = req.body.proeevedor
+  } else if (req.body.empresa) {
+    query.empresa = req.body.empresa
+  } else {
+    return res.status(400).send({
+      message: 'Campos requeridos: empresa o proeevedor',
+      fields: ['empresa', 'proeevedor']
+    })
+  }
+
   try {
-    const emp = req.body.empresa
-    const tipo = req.body.tipo
-    const cuenta = await Cuenta.find({ empresa: emp, tipo })
+    const cuenta = await Cuenta.find(query)
 
     return res.status(200).send({ cuenta })
   } catch (err) {
