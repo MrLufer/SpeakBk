@@ -1,16 +1,17 @@
 'use strict'
 
 const express = require('express')
-const bodyParser = require('body-parser')
-const hbs = require('express-handlebars')
+const { engine } = require('express-handlebars')
 const app = express()
 const api = require('./routes')
 const path = require('path')
+
+app.disable('x-powered-by')
 app.use(express.static(path.join(__dirname, 'public')))
 
-app.use(bodyParser.urlencoded({ extended: false }))
-app.use(bodyParser.json())
-app.engine('.hbs', hbs({
+app.use(express.urlencoded({ extended: false }))
+app.use(express.json())
+app.engine('.hbs', engine({
   defaultLayout: 'default',
   extname: '.hbs'
 }))
@@ -18,161 +19,37 @@ app.set('view engine', '.hbs')
 
 app.use('/api', api)
 
+const pages = [
+  { route: '/', view: 'index', locals: { css: 'index' } },
+  { route: '/index', view: 'index', locals: { css: 'index' } },
+  { route: '/olvide', view: 'olvide', locals: { css: 'olvide' } },
+  { route: '/registro', view: 'registro', locals: { css: 'registro' } },
+  { route: '/chat', view: 'chat', locals: { css: 'chat' } },
+  { route: '/tarjetas', view: 'tarjetas', locals: { css: 'tarjetas' } },
+  { route: '/calendario', view: 'calendario', locals: { css: 'calendario_styles' } },
+  { route: '/cpagar', view: 'cpagar', locals: { css: 'cpagar_styles', js: 'pagar' } },
+  { route: '/ccobrar', view: 'ccobrar', locals: { css: 'cpagar_styles', js: 'pagar' } },
+  { route: '/consultaEmpresa', view: 'consultaE', locals: { css: 'consultaE_styles' } },
+  { route: '/consultaPersona', view: 'consultaP' },
+  { route: '/admuser', view: 'admuser', locals: { css: 'admuser_styles' } },
+  { route: '/ctscobrar', view: 'ctscobrar', locals: { css: 'ctscobrar' } },
+  { route: '/busqueda', view: 'busqueda', locals: { css: 'ctscobrar' } },
+  { route: '/ctspagar', view: 'ctspagar', locals: { css: 'ctspagar' } },
+  { route: '/master', view: 'master', locals: { js: 'master' } },
+  { route: '/password', view: 'password', locals: { css: 'password' } },
+  { route: '/generatepassword', view: 'generatePass', locals: { css: 'password' } },
+  { route: '/flujos', view: 'chart', locals: { js: 'main', jsx: 'Chart.bundle.min' } },
+  { route: '/changedpass', view: 'changepass', locals: { css: 'change' } }
+]
 
-
-app.get('/', (req,res)=>{
-
-	res.render('index',{
-    css: 'index'
-  });
-
-})
-
-app.get('/olvide', (req,res)=>{
-
-	res.render('olvide',{
-    css: 'olvide'
-  });
-
-})
-app.get('/registro', (req,res)=>{
-
-	res.render('registro',{
-    css: 'registro'
+pages.forEach(({ route, view, locals = {} }) => {
+  app.get(route, (req, res) => {
+    res.render(view, locals)
   })
 })
 
-app.get('/olvide', (req,res)=>{
-
-	res.render('olvide',{
-    css: 'olvide_styles'
-  })
-})
-
-app.get('/chat', (req,res)=>{
-
-	res.render('chat',{
-    css: 'chat'
-  })
-})
-
-app.get('/tarjetas', (req,res)=>{
-
-	res.render('tarjetas',{
-    css: 'tarjetas'
-  })
-})
-
-
-
-app.get('/calendario',(req,res)=>{
-  res.render('calendario',{
-    css: 'calendario_styles'
-  })
-})
-
-app.get('/cpagar',(req,res)=>{
-  res.render('cpagar',{
-    css: 'cpagar_styles',
-    js: 'pagar'
-  })
-})
-
-app.get('/ccobrar',(req,res)=>{
-  res.render('ccobrar',{
-    css: 'cpagar_styles',
-    js: 'pagar'
-  })
-})
-
-
-app.get('/consultaEmpresa',(req,res)=>{
-  res.render('consultaE',{
-    css: 'consultaE_styles'
-
-  })
-
-})
-
-app.get('/consultaPersona',(req,res)=>{
-  res.render('consultaP')
-})
-
-app.get('/index',(req,res)=>{
-	res.render('index')
-})
-
-app.get('/registro',(req,res)=>{
-	res.render('registro',{
-    css: 'registro_styles',
-    js: 'registro'
-  })
-})
-
-app.get('/admuser',(req,res)=>{
-	res.render('admuser',{
-    css: 'admuser_styles'
-
-  })
-})
-
-app.get('/ctscobrar',(req,res)=>{
-  res.render('ctscobrar',{
-    css: 'ctscobrar'
-  })
-
-})
-
-app.get('/busqueda',(req,res)=>{
-  res.render('busqueda.hbs',{
-    css: 'ctscobrar'
-  })
-
-})
-
-app.get('/ctspagar',(req,res)=>{
-  res.render('ctspagar',{
-    css: 'ctspagar'
-  })
-
-})
-
-app.get('/master',(req,res)=>{
-  res.render('master',{
-    js: 'master'
-
-  })
-})
-
-app.get('/password',(req,res)=>{
-  res.render('password',{
-  css: 'password'
-
-  })
-})
-
-app.get('/generatepassword',(req,res)=>{
-  res.render('generatePass',{
-  css: 'password'
-
-  })
-})
-
-
-app.get('/flujos',(req,res)=>{
-  res.render('chart',{
-    js: 'main',
-    jsx: 'Chart.bundle.min'
-
-  })
-
-})
-
-
-app.get('/changedpass',(req,res)=>{
-  res.render('changepass',{
-    css: 'change'
-  })
+app.use((req, res) => {
+  res.status(404).send({ message: 'Ruta no encontrada' })
 })
 
 module.exports = app

@@ -1,70 +1,82 @@
+'use strict'
+
 const Rep = require('../models/useremp')
+const { handleControllerError, validateFields } = require('./utils')
 
+async function getUsuariosEmpresa (req, res) {
+  if (!validateFields(req, res, ['empresa'])) {
+    return
+  }
 
-function getUsuariosEmpresa (req,res){
-  let emp = req.body.empresa
-  console.log(emp)
-  Rep.find({empresa: emp}, (err, usuario) => {
-    if (err) return res.status(500).send({message: `Error al realizar la petición: ${err}`})
-    if (!usuario) return res.status(404).send({message: 'No existe el usuario'})
+  try {
+    const emp = req.body.empresa
 
-    res.send(200, { usuario })
-  })
+    const usuario = await Rep.find({ empresa: emp })
 
+    return res.status(200).send({ usuario })
+  } catch (err) {
+    return handleControllerError(res, err, 'Error al realizar la petición')
+  }
 }
 
-function getUserDni (req,res){
-  let dni = req.body.dni
-  console.log(dni)
-  Rep.find({dni: dni},(err,usuario)=>{
-    if (err) return res.status(500).send({message: `Error al realizar la petición: ${err}`})
-    if (!usuario) return res.status(404).send({message: 'No existen usuarios registrados'})
+async function getUserDni (req, res) {
+  if (!validateFields(req, res, ['dni'])) {
+    return
+  }
 
-    res.send(200, { usuario })
+  try {
+    const dni = req.body.dni
 
-  })
+    const usuario = await Rep.find({ dni })
+
+    return res.status(200).send({ usuario })
+  } catch (err) {
+    return handleControllerError(res, err, 'Error al realizar la petición')
+  }
 }
 
+async function saveUser (req, res) {
+  if (!validateFields(req, res, ['email', 'name', 'dni'])) {
+    return
+  }
 
+  try {
+    const usuario = new Rep({
+      email: req.body.email,
+      name: req.body.name,
+      dni: req.body.dni,
+      empresa: req.body.empresa,
+      facultades: req.body.facultades
+    })
 
+    const usuarioStored = await usuario.save()
 
-function saveUser (req,res){
-  let usuario = new Rep ()
-
-  usuario.email = req.body.email
-  usuario.name = req.body.name
-  usuario.dni = req.body.dni
-  usuario.empresa = req.body.empresa
-  usuario.facultades = req.body.facultades
-
-  usuario.save((err, usuarioStored) => {
-    if (err) res.status(500).send({message: `Error al salvar en la base de datos: ${err} `})
-
-    res.status(200).send({ usuario: usuarioStored })
-  })
-
-
+    return res.status(200).send({ usuario: usuarioStored })
+  } catch (err) {
+    return handleControllerError(res, err, 'Error al salvar en la base de datos')
+  }
 }
 
+async function admuser (req, res) {
+  if (!validateFields(req, res, ['dni', 'empresa'])) {
+    return
+  }
 
-function admuser (req,res){
-  let dni = req.body.dni
-  let emp = req.body.empresa
-  console.log(dni)
-  Rep.find({dni: dni , empresa: emp},(err,usuario)=>{
-    if (err) return res.status(500).send({message: `Error al realizar la petición: ${err}`})
-    if (!usuario) return res.status(404).send({message: 'No existen usuarios registrados'})
+  try {
+    const dni = req.body.dni
+    const emp = req.body.empresa
 
-    res.send(200, { usuario })
+    const usuario = await Rep.find({ dni, empresa: emp })
 
-  })
+    return res.status(200).send({ usuario })
+  } catch (err) {
+    return handleControllerError(res, err, 'Error al realizar la petición')
+  }
 }
-
 
 module.exports = {
   admuser,
   saveUser,
   getUsuariosEmpresa,
   getUserDni
-
 }

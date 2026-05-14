@@ -1,121 +1,128 @@
 'use strict'
 
 const Cuenta = require('../models/cuenta')
+const { handleControllerError, validateFields } = require('./utils')
 
-function saveCuenta (req, res) {
-  console.log('POST /api/cuenta')
-  console.log(req.body)
+async function saveCuenta (req, res) {
+  if (!validateFields(req, res, ['empresa', 'factura', 'tipo'])) {
+    return
+  }
 
-  let cuenta = new Cuenta()
-  cuenta.empresa = req.body.empresa
-  cuenta.proeevedor = req.body.proeevedor
-  cuenta.ruc = req.body.ruc
-  cuenta.monto = req.body.monto
-  cuenta.factura = req.body.factura
-  cuenta.fechaemision = req.body.fechaemision
-  cuenta.fechavencimiento = req.body.fechavencimiento
-  cuenta.personacontacto = req.body.personacontacto
-  cuenta.descripcion = req.body.descripcion
-  cuenta.telefono = req.body.telefono
-  cuenta.estado = req.body.estado
-  cuenta.tipo = req.body.tipo
+  try {
+    const cuenta = new Cuenta({
+      empresa: req.body.empresa,
+      proeevedor: req.body.proeevedor,
+      ruc: req.body.ruc,
+      monto: req.body.monto,
+      factura: req.body.factura,
+      fechaemision: req.body.fechaemision,
+      fechavencimiento: req.body.fechavencimiento,
+      personacontacto: req.body.personacontacto,
+      descripcion: req.body.descripcion,
+      telefono: req.body.telefono,
+      estado: req.body.estado,
+      tipo: req.body.tipo
+    })
 
-  cuenta.save((err, cuentaStored) => {
-    if (err) res.status(500).send({message: `Error al salvar en la base de datos: ${err} `})
+    const cuentaStored = await cuenta.save()
 
-    res.status(200).send({ cuenta: cuentaStored })
-  })
+    return res.status(200).send({ cuenta: cuentaStored })
+  } catch (err) {
+    return handleControllerError(res, err, 'Error al salvar en la base de datos')
+  }
 }
 
-function getCuenta (req, res) {
-  Cuenta.find({}, (err, cuenta) => {
-    if (err) return res.status(500).send({message: `Error al realizar la petición: ${err}`})
-    if (!cuenta) return res.status(404).send({message: 'No existe las cuentas'})
+async function getCuenta (req, res) {
+  try {
+    const cuenta = await Cuenta.find({})
 
-    res.send(200, { cuenta })
-  })
+    return res.status(200).send({ cuenta })
+  } catch (err) {
+    return handleControllerError(res, err, 'Error al realizar la petición')
+  }
 }
 
-function getCuentaEmpresa (req,res){
-  let emp = req.body.empresa
-  let cuenta = req.body.tipo
-  console.log(emp)
-  //{empresa: emp,monto: {$gt: 0}
-  Cuenta.find({empresa: emp,tipo: cuenta}, (err, cuenta) => {
-    if (err) return res.status(500).send({message: `Error al realizar la petición: ${err}`})
-    if (!cuenta) return res.status(404).send({message: 'No existe las cuentas'})
+async function getCuentaEmpresa (req, res) {
+  if (!validateFields(req, res, ['empresa', 'tipo'])) {
+    return
+  }
 
-    res.send(200, { cuenta })
-  })
+  try {
+    const emp = req.body.empresa
+    const tipo = req.body.tipo
+
+    const cuenta = await Cuenta.find({ empresa: emp, tipo })
+
+    return res.status(200).send({ cuenta })
+  } catch (err) {
+    return handleControllerError(res, err, 'Error al realizar la petición')
+  }
 }
 
+async function getCuentaEmpresaDeuda (req, res) {
+  if (!validateFields(req, res, ['empresa', 'tipo'])) {
+    return
+  }
 
-function getCuentaEmpresaDeuda (req,res){
-  let emp = req.body.empresa
-  let cuenta = req.body.tipo
-  console.log(emp)
-  //{empresa: emp,monto: {$lt: 0}
-  Cuenta.find({empresa: emp,tipo: cuenta}, (err, cuenta) => {
-    if (err) return res.status(500).send({message: `Error al realizar la petición: ${err}`})
-    if (!cuenta) return res.status(404).send({message: 'No existe las cuentas'})
+  try {
+    const emp = req.body.empresa
+    const tipo = req.body.tipo
 
-    res.send(200, { cuenta })
-  })
+    const cuenta = await Cuenta.find({ empresa: emp, tipo })
 
+    return res.status(200).send({ cuenta })
+  } catch (err) {
+    return handleControllerError(res, err, 'Error al realizar la petición')
+  }
 }
 
+async function getFactura (req, res) {
+  if (!validateFields(req, res, ['empresa', 'factura'])) {
+    return
+  }
 
-function getFactura (req,res){
-  let emp = req.body.empresa
-  let fac = req.body.factura
-  Cuenta.find({empresa: emp,factura: fac}, (err, cuenta) => {
-    if (err) return res.status(500).send({message: `Error al realizar la petición: ${err}`})
-    if (!cuenta) return res.status(404).send({message: 'No existe las cuentas'})
+  try {
+    const emp = req.body.empresa
+    const fac = req.body.factura
+    const cuenta = await Cuenta.find({ empresa: emp, factura: fac })
 
-    res.send(200, { cuenta })
-  })
-
+    return res.status(200).send({ cuenta })
+  } catch (err) {
+    return handleControllerError(res, err, 'Error al realizar la petición')
+  }
 }
 
+async function Buscar (req, res) {
+  if (!validateFields(req, res, ['empresa', 'tipo'])) {
+    return
+  }
 
-function getFactura (req,res){
-  let emp = req.body.empresa
-  let fac = req.body.factura
-  Cuenta.find({empresa: emp,factura: fac}, (err, cuenta) => {
-    if (err) return res.status(500).send({message: `Error al realizar la petición: ${err}`})
-    if (!cuenta) return res.status(404).send({message: 'No existe las cuentas'})
+  try {
+    const emp = req.body.empresa
+    const tipo = req.body.tipo
+    const cuenta = await Cuenta.find({ empresa: emp, tipo })
 
-    res.send(200, { cuenta })
-  })
-
+    return res.status(200).send({ cuenta })
+  } catch (err) {
+    return handleControllerError(res, err, 'Error al realizar la petición')
+  }
 }
 
+async function Search (req, res) {
+  if (!validateFields(req, res, ['ruc', 'tipo'])) {
+    return
+  }
 
-function Buscar (req,res){
-  let emp = req.body.empresa
-  let tipo = req.body.tipo
-  Cuenta.find({empresa: emp,tipo: tipo}, (err, cuenta) => {
-    if (err) return res.status(500).send({message: `Error al realizar la petición: ${err}`})
-    if (!cuenta) return res.status(404).send({message: 'No existe las cuentas'})
+  try {
+    const ruc = req.body.ruc
+    const tipo = req.body.tipo
+    const cuenta = await Cuenta.find({ ruc, tipo })
 
-    res.send(200, { cuenta })
-  })
-
+    return res.status(200).send({ cuenta })
+  } catch (err) {
+    return handleControllerError(res, err, 'Error al realizar la petición')
+  }
 }
-
-function Search (req,res){
-  let ruc = req.body.ruc
-  let tipo = req.body.tipo
-  Cuenta.find({ruc:ruc,tipo: tipo}, (err, cuenta) => {
-    if (err) return res.status(500).send({message: `Error al realizar la petición: ${err}`})
-    if (!cuenta) return res.status(404).send({message: 'No existe las cuentas'})
-
-    res.send(200, { cuenta })
-  })
-
-}
-
-
 
 module.exports = {
   Search,

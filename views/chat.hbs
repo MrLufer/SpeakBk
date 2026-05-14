@@ -38,37 +38,43 @@
                     <input class="form-control "  id="m" />
                 </div>
                 <div class="m1">
-                  <button class=" m1 btn btn-success">Enviar</button>
+                  <button class=" m1 btn btn-success" id="send-message" type="button">Enviar</button>
                 </div>
               </div>
       </div>
   </div>
 
+<script src="/socket.io/socket.io.js"></script>
 <script>
+  document.addEventListener('DOMContentLoaded', function () {
+    var socket = io();
+    var input = document.getElementById('m');
+    var button = document.getElementById('send-message');
+    var messages = document.getElementById('messages');
 
-  $.ajax({
-       url: '/api/chat',
-       type: 'POST',
-       method: 'POST',
-       data: {empresa:empresa , tipo:"Pagar"},
-       success: function(data){
-       console.log(data);
-       var tbl=$("<table/>").attr("id","mytable");
-  $("#div1").append(tbl);
-  for(var i=0;i<data.cuenta.length;i++)
-  {
-      var tr="<tr>";
-      var td1="<td>"+data.cuenta[i]["proeevedor"]+"</td>";
-        var td2="<td> <a href='cpagar?id="+ data.cuenta[i]["factura"] +"'>" + data.cuenta[i]["factura"] +"</a> </td>";
-      var td3="<td style='color:red'>"+data.cuenta[i]["monto"]+"</td>";
-      var td4="<td>"+data.cuenta[i]["fechaemision"]+"</td>";
-      var td5="<td>"+data.cuenta[i]["fechavencimiento"]+"</td>";
-      var td6="<td>"+data.cuenta[i]["estado"]+"</td></tr>";
+    function sendMessage() {
+      var message = input.value.trim();
 
-     $("#mytable").append(tr+td1+td2+td3+td4+td5+td6);
+      if (!message) {
+        return;
+      }
 
-  }
-     }
-     });
+      socket.emit('chat message', message);
+      input.value = '';
+    }
 
+    button.addEventListener('click', sendMessage);
+    input.addEventListener('keydown', function (event) {
+      if (event.key === 'Enter') {
+        event.preventDefault();
+        sendMessage();
+      }
+    });
+
+    socket.on('chat message', function (message) {
+      var item = document.createElement('li');
+      item.textContent = message;
+      messages.appendChild(item);
+    });
+  });
 </script>

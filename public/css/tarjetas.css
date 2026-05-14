@@ -218,7 +218,7 @@ img {
 body {
     font-family: 'Source Sans Pro', sans-serif;
     font-size: 100%;
-    background: url(../images/banner1.jpg)no-repeat center top;
+    background: url(../img/banner1.jpg)no-repeat center top;
     background-size: cover;
     -webkit-background-size: cover;
     -moz-background-size: cover;

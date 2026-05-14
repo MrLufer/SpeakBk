@@ -2,63 +2,66 @@
 
 const User = require('../models/user')
 const service = require('../services')
+const { handleControllerError, validateFields } = require('./utils')
 
+async function signIn (req, res) {
+  if (!validateFields(req, res, ['dni'])) {
+    return
+  }
 
- /* function signUp (req, res) {
-  const user = new User({
-    dni: req.body.dni,
-    displayName: req.body.displayName,
-    password: req.body.password
-  })
+  try {
+    const user = await User.findOne({ dni: req.body.dni })
 
-  user.save((err) => {
-    if (err) return res.status(500).send({ message: `Error al crear el usuario: ${err}` })
-
-    return res.status(201).send({ token: service.createToken(user) })
-  })
-}
-*/
-function signIn (req, res) {
-  User.find({ dni: req.body.dni }, (err, user) => {
-    if (err) return res.status(500).send({ message: err })
-    if (!user) return res.status(404).send({ message: 'No existe el usuario' })
+    if (!user) {
+      return res.status(404).send({ message: 'No existe el usuario' })
+    }
 
     req.user = user
-    res.status(200).send({
+    return res.status(200).send({
       message: 'Te has logueado correctamente',
       token: service.createToken(user)
     })
-  })
+  } catch (err) {
+    return handleControllerError(res, err, 'Error al iniciar sesión')
+  }
 }
 
-function getEmpresas (req,res){
-  let ruc = req.body.ruc
-  User.find({ruc: ruc}, (err,empresas)=>{
-    if (err) return res.status(500).send({message: `Error al realizar la petición: ${err}`})
-    if (!empresas) return res.status(404).send({message: 'No existen usuarios registrados'})
+async function getEmpresas (req, res) {
+  if (!validateFields(req, res, ['ruc'])) {
+    return
+  }
 
-    res.send(200, { empresas })
-  })
+  try {
+    const ruc = req.body.ruc
+    const empresas = await User.find({ ruc })
+
+    return res.status(200).send({ empresas })
+  } catch (err) {
+    return handleControllerError(res, err, 'Error al realizar la petición')
+  }
 }
 
-function registrarEmpresa (req,res){
-  const empresa = new User()
-    empresa.ruc= req.body.ruc,
-    empresa.razon= req.body.razon
+async function registrarEmpresa (req, res) {
+  if (!validateFields(req, res, ['ruc', 'razon'])) {
+    return
+  }
 
+  try {
+    const empresa = new User({
+      ruc: req.body.ruc,
+      razon: req.body.razon
+    })
 
-  empresa.save((err) => {
-    if (err) return res.status(500).send({ message: `Error al crear empresa: ${err}` })
-    return res.status(201).send({ empresa })
-  })
+    const empresaStored = await empresa.save()
 
-
-
+    return res.status(201).send({ empresa: empresaStored })
+  } catch (err) {
+    return handleControllerError(res, err, 'Error al crear empresa')
+  }
 }
-
 
 module.exports = {
   registrarEmpresa,
   getEmpresas,
-
+  signIn
 }

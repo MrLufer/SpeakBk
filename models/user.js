@@ -2,9 +2,6 @@
 
 const mongoose = require('mongoose')
 const Schema = mongoose.Schema
-const bcrypt = require('bcrypt-nodejs')
-const crypto = require('crypto')
-
 
 //MODELO DE LA EMPRESA
 const UserSchema = new Schema({
